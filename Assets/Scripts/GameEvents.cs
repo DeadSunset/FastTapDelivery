@@ -9,12 +9,14 @@ public class GameEvents : MonoBehaviour
     public event Action OnToolIconResize;
     public event Action OnRoadEnded;
     public event Action OnRoadTileSet;
+    public event Action OnPlayerMoved;
     public event Action<string> OnSetCurrentTool;
     public event Action<Vector3> OnPassCoordinates;
     public void GetSquareId(int id) => OnGetSquareId?.Invoke(id);
     public void ToolIconResize() => OnToolIconResize?.Invoke();
     public void RoadEnded() => OnRoadEnded?.Invoke();
     public void RoadTileSet() => OnRoadTileSet?.Invoke();
+    public void PlayerMoved() => OnPlayerMoved?.Invoke();
     public void SetCurrentTool(string tool) => OnSetCurrentTool?.Invoke(tool);
     public void PassCoordinates(Vector3 pos) => OnPassCoordinates?.Invoke(pos);
 
