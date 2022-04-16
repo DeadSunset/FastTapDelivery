@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager game;
+    [HideInInspector]
     public PlayerController player;
     public List<GameObject> obstaclesList = new List<GameObject>();
     public List<GameObject> roadList = new List<GameObject>();
@@ -12,11 +13,17 @@ public class GameManager : MonoBehaviour
     public GameObject cornerRoad;
     public GameObject endRoad;
     public GameObject startRoad;
+    [SerializeField]
+    private int targetFPS;
+
+    public bool onMenuOpened;
     [Header("TOOL IN WORK")]
     public string currentTool;
 
     private void Awake()
     {
+        Application.targetFrameRate = targetFPS;
+        onMenuOpened = false;
         player = null;
         game = this;
     }

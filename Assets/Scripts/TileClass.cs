@@ -6,14 +6,20 @@ public class TileClass : MonoBehaviour
     public string Type;
     private Color _tempColor;
     private Material[] _mats;
+    private bool _isClicked;
     private void Awake()
     {
-       _mats = gameObject.GetComponent<Renderer>().materials;
+        _mats = gameObject.GetComponent<Renderer>().materials;
         _tempColor = _mats[_mats.Length - 1].color;
     }
     private void OnMouseEnter()
     {
         gameObject.GetComponent<Renderer>().materials[_mats.Length - 1].color = Color.white;
+        if (!GameManager.game.onMenuOpened && Input.GetMouseButton(0) && GameManager.game.currentTool != "end")
+        {
+            GameEvents.events.PassCoordinates(gameObject.transform.position);
+            GameEvents.events.GetSquareId(ID);
+        }
     }
     private void OnMouseExit()
     {
@@ -22,8 +28,11 @@ public class TileClass : MonoBehaviour
 
     private void OnMouseDown()
     {
-        GameEvents.events.PassCoordinates(gameObject.transform.position);
-        GameEvents.events.GetSquareId(ID);
+        if (!GameManager.game.onMenuOpened)
+        {
+            GameEvents.events.PassCoordinates(gameObject.transform.position);
+            GameEvents.events.GetSquareId(ID);
+        }
     }
 
     public void SetIdAndType(int ID, string Type)
@@ -31,4 +40,5 @@ public class TileClass : MonoBehaviour
         this.ID = ID;
         this.Type = Type;
     }
+
 }

@@ -253,8 +253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdcce1a4d9244143bcd5767a031d1b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cellStepOverTime: 1
-  rotationTime: 1
+  cellStepOverTime: 0.9
+  rotationTime: 0.9
 --- !u!1 &1157946496253678
 GameObject:
   m_ObjectHideFlags: 0
