@@ -42,6 +42,9 @@ public class ButtonResetLevel : MonoBehaviour
             }
 
             MapGenerator.map.isRoadEnded = false;
+            GameManager.game.currentTool = "empty";
+
+            CameraManager.cameraManager.EnableMainCamera(true);
         }
     }
 }

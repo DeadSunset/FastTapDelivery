@@ -65,15 +65,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0.82
+    m_Value: 1.05
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 2.86
+    m_Value: 2.27
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.213
+    m_Value: 0.367
     min: 0
     max: 1
   clamp:
@@ -88,7 +88,7 @@ MonoBehaviour:
     showEyeDropper: 1
   highQualityFiltering:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   skipIterations:
     m_OverrideState: 0
     m_Value: 1

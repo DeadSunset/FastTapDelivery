@@ -14,7 +14,10 @@ public class TileClass : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        gameObject.GetComponent<Renderer>().materials[_mats.Length - 1].color = Color.white;
+        if (GameManager.game.currentTool != "fight")
+        {
+            gameObject.GetComponent<Renderer>().materials[_mats.Length - 1].color = Color.white;
+        }
         if (!GameManager.game.onMenuOpened && Input.GetMouseButton(0) && GameManager.game.currentTool != "end")
         {
             GameEvents.events.PassCoordinates(gameObject.transform.position);

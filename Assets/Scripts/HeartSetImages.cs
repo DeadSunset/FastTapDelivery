@@ -5,7 +5,10 @@ public class HeartSetImages : MonoBehaviour
 {
     [SerializeField]
     private GameObject _heart;
-    private List<GameObject> _heartsList = new List<GameObject>();
+    [SerializeField]
+    private GameObject _heartHolder;
+    [SerializeField]
+    public List<GameObject> heartsList = new List<GameObject>();
 
     private void Start()
     {
@@ -14,17 +17,17 @@ public class HeartSetImages : MonoBehaviour
     }
     public void SetHearts()
     {
-        foreach (var item in _heartsList)
+        foreach (var item in heartsList)
         {
             Destroy(item);
         }
-        _heartsList.Clear();
+        heartsList.Clear();
 
-        for (int i = 0; i < PlayerStats.playerStats.healthPoints; i++)
+        for (int i = 0; i < PlayerStats.playerStats.maxHealthPoints; i++)
         {
-            var h = Instantiate(_heart, transform);
-            h.transform.SetParent(this.transform);
-            _heartsList.Add(h);
+            var h = Instantiate(_heart, _heartHolder.transform);
+            h.transform.SetParent(_heartHolder.transform);
+            heartsList.Add(h);
         }
     }
 }

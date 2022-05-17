@@ -7,6 +7,8 @@ public class ButtonRoadEnd : MonoBehaviour
     public int numberForRoadEndAvaliable = 15;
     public GameObject buttonRoad;
     private int count =0;
+
+    private bool isButton;
     private void OnEnable()
     {
         number.text = numberForRoadEndAvaliable.ToString();
@@ -16,6 +18,7 @@ public class ButtonRoadEnd : MonoBehaviour
     }
     private void Start()
     {
+        isButton = false;
         GameEvents.events.OnRoadTileSet += SetButton;
         GameEvents.events.OnRoadEnded += DeactivateButtonsForRoad;
     }
@@ -23,8 +26,10 @@ public class ButtonRoadEnd : MonoBehaviour
     {
         count++;
         number.text = (numberForRoadEndAvaliable - count).ToString();
-        if (count >= numberForRoadEndAvaliable)
+        if (count >= numberForRoadEndAvaliable && !isButton)
         {
+            isButton = true;
+            GameEvents.events.PointIsReady();
             number.gameObject.SetActive(false);
             gameObject.GetComponent<Button>().interactable = true;
         }

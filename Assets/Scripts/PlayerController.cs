@@ -5,18 +5,27 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject fightCamera;
     public float cellStepOverTime;
     public float rotationTime;
+    public List<EnemyClass> currentEnemies = new List<EnemyClass>();
 
     private List<GameObject> roadList;
-    private int _currentCell = 0;
+    private int _currentCell;
+
+    private AudioSource _source;
+    [SerializeField]
+    private AudioClip _walkSound;
 
     void Start()
     {
+        _source = gameObject.AddComponent<AudioSource>();
+        _currentCell = 0;
         GameManager.game.SetPlayerObject(this);
         roadList = MapGenerator.map.roadPathList;
         CheckRotaton();
         StartCoroutine("MoveToCell");
+        GameEvents.events.SetCurrentTool("fight");
         if (PlayerStats.playerStats.playerController == null)
         {
             PlayerStats.playerStats.playerController = this;
@@ -39,8 +48,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator MoveToCell()
     {
+        _source.clip = _walkSound;
+        _source.Play();
         var cellPos = MapGenerator.map.roadPathList[_currentCell].transform.position;
-        cellPos = new Vector3(cellPos.x, 0, cellPos.z);
+        cellPos = new Vector3(cellPos.x, 0.16f, cellPos.z);
         gameObject.transform.DOMove(cellPos, cellStepOverTime);
         yield return new WaitForSeconds(cellStepOverTime);
         if (MapGenerator.map.roadPathList[0].transform.position != MapGenerator.map.roadPathList[MapGenerator.map.roadPathList.Count - 1].transform.position)
@@ -70,5 +81,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+    }
+
+    public void StartMoving()
+    {
+        StartCoroutine(MoveToCell());
+    }
+    public int EnemiesCount()
+    {
+        return currentEnemies.Count;
+    }
+
+    public void AssignSpeed(float stepTime, float rotatTime)
+    {
+        cellStepOverTime = stepTime;
+        rotationTime = rotatTime;
     }
 }

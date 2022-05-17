@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,11 @@ public class MapGenerator : MonoBehaviour
     [Header("TILE FOLDER")]
     public Transform tileFolder;
 
+    [SerializeField]
+    private GameObject _houseCreatedEffect;
+    [SerializeField]
+    private AudioClip _buildRoadSound;
+    private AudioSource _source;
     private Vector3 _roadPointer;
     private Vector3 _passedCoordinate;
     private GameObject _tile;
@@ -23,6 +29,7 @@ public class MapGenerator : MonoBehaviour
     }
     private void Start()
     {
+        _source = gameObject.AddComponent<AudioSource>();
         GameEvents.events.OnGetSquareId += ReplaceTile;
         GameEvents.events.OnPassCoordinates += GetPassedCoordinate;
     }
@@ -74,7 +81,8 @@ public class MapGenerator : MonoBehaviour
                         if (roadPathList.Count == 0) _tile = CreateAndInsertTile(GameManager.game.startRoad, (int)_passedCoordinate.x, (int)_passedCoordinate.z, id, "road");
                         else _tile = CreateAndInsertTile(GameManager.game.straightRoad, (int)_passedCoordinate.x, (int)_passedCoordinate.z, id, "road");
                         _tile.name = RandomCodeName();
-
+                        _source.clip = _buildRoadSound;
+                        _source.Play();
                         roadPathList.Add(_tile);
                         ClearPathFromEmpties();
                         _roadPointer = FindFieldObjectWithID(id).transform.position;
@@ -88,16 +96,18 @@ public class MapGenerator : MonoBehaviour
                         }
                         else if (roadPathList.Count == 2)
                         {
-                            var posCur = roadPathList[roadPathList.Count - 1].transform.position;
-                            var posMid = roadPathList[roadPathList.Count - 2].transform.position;
-                            CheckForRotationAndCorners(posCur, posMid, posMid, roadPathList.Count - 2);
-                            roadPathList[roadPathList.Count - 2].transform.Rotate(0, 180, 0);
+                            var curTransTile = roadPathList[roadPathList.Count - 1].transform;
+                            var prevTransTile = roadPathList[roadPathList.Count - 2].transform;
+                            if (curTransTile.position.x == prevTransTile.position.x && curTransTile.position.z < prevTransTile.position.z)
+                                prevTransTile.Rotate(0, 180, 0);
+                            else if (curTransTile.position.z == prevTransTile.position.z)
+                            {
+                                if (curTransTile.position.x < prevTransTile.position.x) prevTransTile.Rotate(0, -90, 0);
+                                else prevTransTile.Rotate(0, 90, 0);
+                            }
                         }
                     }
-                    else
-                    {
-                        Debug.LogError("Unreacheble point");
-                    }
+
                 }
                 break;
             case "random":
@@ -111,16 +121,10 @@ public class MapGenerator : MonoBehaviour
             case "end":
                 if (!isRoadEnded)
                 {
-                    if (CheckPointerRoadDistance(id) && (!roadPathList.Contains(FindFieldObjectWithID(id)) || roadPathList[0].GetComponent<TileClass>().ID == id || roadPathList[roadPathList.Count - 1].GetComponent<TileClass>().ID == id))
+                    if ((CheckPointerRoadDistance(id) && (!roadPathList.Contains(FindFieldObjectWithID(id))) || roadPathList[0] == FindFieldObjectWithID(id) || roadPathList[roadPathList.Count - 1] == FindFieldObjectWithID(id)))
                     {
                         if (FindFieldObjectWithID(id).transform.position != roadPathList[0].transform.position) // check if end tile is not on start tile
                         {
-                            var startTile = RemoveFieldTileAtId(roadPathList[0].gameObject.GetComponent<TileClass>().ID);
-                            var startPosition = startTile.transform.position;
-                            var startTileNew = CreateAndInsertTile(GameManager.game.startRoad, (int)startPosition.x, (int)startPosition.z, startTile.GetComponent<TileClass>().ID, "road");
-                            roadPathList[0] = startTileNew;
-                            Destroy(startTile);
-
                             var c = RemoveFieldTileAtId(id);
                             var roadEnd = CreateAndInsertTile(GameManager.game.endRoad, (int)_passedCoordinate.x, (int)_passedCoordinate.z, id, "road");
                             var endPos = roadEnd.transform.position;
@@ -131,35 +135,26 @@ public class MapGenerator : MonoBehaviour
 
 
                             //check rotation of end Tile
-                            if (endPos.x == prevMid.x && endPos.z > prevMid.z)
+                            if (endPos.x == prevMid.x && endPos.z > prevMid.z && roadEnd.transform.rotation != Quaternion.Euler(0, 180, 0))
                             {
-                                roadEnd.transform.Rotate(0, 180, 0); print("поворот");
+                                print(roadEnd.transform.rotation);
+                                roadEnd.transform.Rotate(0, 180, 0);
                             }
-                            else if (endPos.z == prevMid.z && endPos.x < prevMid.x)
+                            else if (endPos.z == prevMid.z && endPos.x < prevMid.x && roadEnd.transform.rotation != Quaternion.Euler(0, 90, 0))
                             {
-                                roadEnd.transform.Rotate(0, 90, 0); print("поворот");
+                                print(roadEnd.transform.rotation);
+                                roadEnd.transform.Rotate(0, 90, 0);
                             }
-                            else if (endPos.z == prevMid.z && endPos.x > prevMid.x)
+                            else if (endPos.z == prevMid.z && endPos.x > prevMid.x && roadEnd.transform.rotation != Quaternion.Euler(0, -90, 0))
                             {
-                                roadEnd.transform.Rotate(0, -90, 0); print("поворот");
+                                print(roadEnd.transform.rotation);
+                                roadEnd.transform.Rotate(0, -90, 0);
                             }
 
                             CheckForRotationAndCorners(endPos, prevMid, prevPrevPos, roadPathList.Count - 2);
-
-                            var startHouse = roadPathList[0].transform.position;
-                            var nextToStart = roadPathList[1].transform.position;
-                            if (nextToStart.x > startHouse.x && nextToStart.z == startHouse.z)
-                            {
-                                roadPathList[0].transform.Rotate(0, 90, 0); print("поворот");
-                            }
-                            else if (nextToStart.x < startHouse.x && nextToStart.z == startHouse.z)
-                            {
-                                roadPathList[0].transform.Rotate(0, -90, 0); print("поворот");
-                            }
-                            else if (nextToStart.x == startHouse.x && nextToStart.z < startHouse.z)
-                            {
-                                roadPathList[0].transform.Rotate(0, -180, 0);
-                            }
+                            ClearPathFromEmpties();
+                            isRoadEnded = true;
+                            GameEvents.events.RoadEnded();
                         }
 
 
@@ -173,7 +168,6 @@ public class MapGenerator : MonoBehaviour
                             {
                                 var startRot = start.transform.rotation.eulerAngles;
                                 var startId = start.GetComponent<TileClass>().ID;
-                                print("start" + startId);
                                 roadPathList[0] = CreateAndInsertTile(GameManager.game.straightRoad, (int)startPos.position.x, (int)startPos.position.z, startId, "road");
                                 if (roadPathList[0].transform.rotation.eulerAngles != startRot) roadPathList[0].transform.rotation = Quaternion.Euler(startRot);
                                 roadPathList[0].name = RandomCodeName();
@@ -184,19 +178,23 @@ public class MapGenerator : MonoBehaviour
                                 var end = roadPathList[roadPathList.Count - 1].gameObject;
                                 var endRot = end.transform.rotation.eulerAngles;
                                 var endId = end.GetComponent<TileClass>().ID;
-                                print("end" + endId);
                                 Destroy(end);
                                 roadPathList[roadPathList.Count - 1] = CreateAndInsertTile(GameManager.game.straightRoad, (int)endPos.x, (int)endPos.z, endId, "road");
                                 if (roadPathList[roadPathList.Count - 1].transform.rotation.eulerAngles != endRot) roadPathList[roadPathList.Count - 1].transform.rotation = Quaternion.Euler(endRot);
                                 roadPathList[roadPathList.Count - 1].name = RandomCodeName();
                             }
 
+                            endPos = new Vector3(endPos.x, 1, endPos.z);
+                            var effect = Instantiate(_houseCreatedEffect, endPos, Quaternion.identity);
+                            StartCoroutine(DestroyDelay(effect));
+
                             Destroy(start);
                         }
                         ClearPathFromEmpties();
                         isRoadEnded = true;
+                        GameEvents.events.RoadEnded();
                     }
-                    GameEvents.events.RoadEnded();
+
                 }
                 break;
             default:
@@ -255,7 +253,8 @@ public class MapGenerator : MonoBehaviour
             }
             else return false;
         }
-        else return true;
+        else if (roadPathList.Count == 0) return true;
+        else return false;
     }
 
     private string RandomCodeName()
@@ -265,7 +264,6 @@ public class MapGenerator : MonoBehaviour
 
     private bool CheckForRotationAndCorners(Vector3 posCur, Vector3 posMid, Vector3 posPrevPrev, int roadPathID)
     {
-        if (posPrevPrev == roadPathList[roadPathID].transform.position) ;
         bool result = false;
         if (!(posCur.z == posMid.z && posMid.z == posPrevPrev.z || posCur.x == posMid.x && posCur.x == posPrevPrev.x))
         {
@@ -328,4 +326,10 @@ public class MapGenerator : MonoBehaviour
         return result;
     }
 
+
+    private IEnumerator DestroyDelay(GameObject go)
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(go);
+    }
 }

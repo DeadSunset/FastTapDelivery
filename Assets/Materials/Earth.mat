@@ -13,6 +13,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 4
+--- !u!28 &-1965574618015972069
+Texture2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: z__GradientRampTex{"mode":0,"colorKeys":[{"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"time":0.0},{"color":{"r":0.7490196228027344,"g":0.5686274766921997,"b":0.38823533058166506,"a":1.0},"time":1.0}],"alphaKeys":[{"alpha":1.0,"time":0.0},{"alpha":1.0,"time":1.0}]}
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  m_IsAlphaChannelOptional: 0
+  serializedVersion: 2
+  m_Width: 256
+  m_Height: 1
+  m_CompleteImageSize: 1024
+  m_MipsStripped: 0
+  m_TextureFormat: 5
+  m_MipCount: 1
+  m_IsReadable: 1
+  m_IsPreProcessed: 0
+  m_IgnoreMasterTextureLimit: 0
+  m_StreamingMipmaps: 0
+  m_StreamingMipmapsPriority: 0
+  m_VTOnly: 0
+  m_AlphaIsTransparency: 0
+  m_ImageCount: 1
+  m_TextureDimension: 2
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_LightmapFormat: 0
+  m_ColorSpace: 1
+  m_PlatformBlob: 
+  image data: 1024
+  _typelessdata: ff000000ff010100ff010101ff020201ff030202ff040302ff040302ff050403ff060503ff070503ff070604ff080604ff090705ff0a0705ff0a0805ff0b0906ff0c0906ff0d0a07ff0d0a07ff0e0b07ff0f0b08ff100c08ff100d09ff110d09ff120e09ff130e0aff130f0aff140f0aff15100bff16100bff16110cff17120cff18120cff19130dff19130dff1a140eff1b140eff1c150eff1c160fff1d160fff1e1710ff1f1710ff1f1810ff201811ff211911ff221a11ff221a12ff231b12ff241b13ff251c13ff251c13ff261d14ff271e14ff281e15ff281f15ff291f15ff2a2016ff2b2016ff2b2117ff2c2217ff2d2217ff2e2318ff2e2318ff2f2418ff302419ff312519ff31261aff32261aff33271aff34271bff34281bff35281cff36291cff372a1cff372a1dff382b1dff392b1eff3a2c1eff3a2c1eff3b2d1fff3c2d1fff3d2e1fff3d2f20ff3e2f20ff3f3021ff403021ff403121ff413122ff423222ff433323ff433323ff443423ff453424ff463524ff463524ff473625ff483725ff493726ff493826ff4a3826ff4b3927ff4c3927ff4c3a28ff4d3b28ff4e3b28ff4f3c29ff4f3c29ff503d2aff513d2aff523e2aff523f2bff533f2bff54402bff55402cff55412cff56412dff57422dff58432dff58432eff59442eff5a442fff5b452fff5b452fff5c4630ff5d4730ff5e4731ff5e4831ff5f4831ff604932ff614932ff614a32ff624a33ff634b33ff644c34ff644c34ff654d34ff664d35ff674e35ff674e36ff684f36ff695036ff6a5037ff6a5137ff6b5138ff6c5238ff6d5238ff6d5339ff6e5439ff6f5439ff70553aff70553aff71563bff72563bff73573bff73583cff74583cff75593dff76593dff765a3dff775a3eff785b3eff795c3fff795c3fff7a5d3fff7b5d40ff7c5e40ff7c5e40ff7d5f41ff7e6041ff7f6042ff7f6142ff806142ff816243ff826243ff826344ff836444ff846444ff856545ff856545ff866645ff876646ff886746ff886747ff896847ff8a6947ff8b6948ff8b6a48ff8c6a49ff8d6b49ff8e6b49ff8e6c4aff8f6d4aff906d4bff916e4bff916e4bff926f4cff936f4cff94704cff94714dff95714dff96724eff97724eff97734eff98734fff99744fff9a7550ff9a7550ff9b7650ff9c7651ff9d7751ff9d7752ff9e7852ff9f7952ffa07953ffa07a53ffa17a53ffa27b54ffa37b54ffa37c55ffa47d55ffa57d55ffa67e56ffa67e56ffa77f57ffa87f57ffa98057ffa98158ffaa8158ffab8259ffac8259ffac8359ffad835affae845affaf845affaf855bffb0865bffb1865cffb2875cffb2875cffb3885dffb4885dffb5895effb58a5effb68a5effb78b5fffb88b5fffb88c60ffb98c60ffba8d60ffbb8e61ffbb8e61ffbc8f61ffbd8f62ffbe9062ffbe9063ffbf9163
+  m_StreamData:
+    serializedVersion: 2
+    offset: 0
+    size: 0
+    path: 
 --- !u!21 &2100000
 Material:
   serializedVersion: 6
@@ -21,18 +68,23 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Earth
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: 4800000, guid: 2a230514c860643f69b6a4d1871d3825, type: 3}
+  m_ShaderKeywords: _DETAILMAPBLENDINGMODE_MULTIPLY _TEXTUREBLENDINGMODE_MULTIPLY
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BakedGIRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -42,6 +94,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -55,6 +111,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GradientRamp:
+        m_Texture: {fileID: -1965574618015972069}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -93,34 +153,72 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
+    - _CameraDistanceImpact: 0.5
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
+    - _DetailMapBlendingMode: 0
+    - _DetailMapImpact: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FlatRimEdgeSmoothness: 0.5
+    - _FlatRimLightAlign: 0
+    - _FlatRimSize: 0.5
+    - _FlatSpecularEdgeSmoothness: 0
+    - _FlatSpecularSize: 0.1
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
+    - _GradientAngle: 0
+    - _GradientCenterX: 0
+    - _GradientCenterY: 0
+    - _GradientEnabled: 0
+    - _GradientSize: 10
+    - _LightContribution: 1
+    - _LightmapDirectionPitch: 0
+    - _LightmapDirectionYaw: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineDepthOffset: 0
+    - _OutlineEnabled: 0
+    - _OutlineScale: 1
+    - _OutlineWidth: 1
+    - _OverrideBakedGi: 0
+    - _OverrideLightAttenuation: 0
+    - _OverrideLightmapDir: 0
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RimEnabled: 0
+    - _SelfShadingSize: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
+    - _SpecularEnabled: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TextureBlendingMode: 0
+    - _TextureImpact: 0
     - _UVSec: 0
+    - _UnityShadowOcclusion: 0
+    - _VertexColorsEnabled: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.9843138, g: 0.7490196, b: 0.5137254, a: 1}
     - _Color: {r: 0.9843138, g: 0.7490196, b: 0.5137255, a: 1}
+    - _ColorGradient: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
+    - _DetailMapColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FlatRimColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _FlatSpecularColor: {r: 0.85023, g: 0.85034, b: 0.85045, a: 0.85056}
+    - _LightAttenuation: {r: 0, g: 1, b: 0, a: 0}
+    - _LightmapDirection: {r: 0, g: 1, b: 0, a: 0}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

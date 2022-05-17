@@ -13,7 +13,7 @@ public class PlayerStatsView : MonoBehaviour
 
     private void SetVisibility()
     {
-        _panel.SetActive(!_panel.activeSelf);
+        _panel.SetActive(true);
     }
 
     private void TurnVisibility()
